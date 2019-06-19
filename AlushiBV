@@ -1,0 +1,88 @@
+programa ColaProduc 
+ 
+constant
+maxcola=50
+ 
+tipo
+ 
+tipoindice= 1...maxcola  
+cad25=cadena[25]
+  
+tipoelemento=registro
+    codigo:cad25
+    tipo:cad25
+    diavenc:entero
+    valorvaja:real
+    cantidadcaja:
+  
+    Fin Registro
+    
+tipocola=registro 
+        frente:tipoindice
+        elemento:tipoelemento
+        final:tipoindice
+        
+        Fin Registro
+variables
+ 
+cola:array[tipoindice]de tipocola
+producto:array[tipoindice] de tipoelemento
+ 
+i,aux,totalcantidad:entero
+totalvalor: real 
+ 
+funcion cola llena(var cola:tipocola):booleana
+   var
+       sigfinal:entero
+   si  cola.final=maxcola entonces
+       sigfinal:=1
+   sino
+       sig final:=cola.final +1
+   fsi    
+   colallena:=sigfinal=cola.frente
+Fin colallena
+ 
+procedimiento encolar(var cola:tipocola);
+ para i:=1 a maxcola hacer
+    si  cola.final=maxcola entonces
+        cola.final:=1
+    sino
+        cola.final=cola.final +1
+    fin si    
+        cola    .i[cola.final]=producto[i]
+    fin para       
+Fin procedimiento
+ 
+inicio 
+ 
+//copiar
+para i:= 1 a 50 hacer
+    producto[i]:=cola[i].elemento
+Fin para
+//
+ 
+ 
+//Ordenando fecha
+ Mientras i<maxcola hacer
+    op:=`v`
+     si producto[i].dia_venc<producto[i+1].dia_venc entonces
+       aux:=producto[i].dia_venc
+       producto[i].dia_venc:=producto[i+1].dia_venc
+       producto[i+1].dia_venc:=aux
+       i:=1
+       op:=`f`
+    fsi   
+    si op =`v`
+       i:i+1
+    fsi   
+    Fin mientras
+    //
+  totalcantidad:=producto[i].cantidadcaja+totalcantidad
+  totalvalor:=producto[i].valorvaja+totalvalor
+ fsi
+ // Mostrar el valor total de productos
+ Escribir(`El valor de los productos en cola es :`.totalvalor*totalcantidad)
+ //
+ 
+fi
+ 
